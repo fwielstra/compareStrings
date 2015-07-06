@@ -35,24 +35,27 @@ func main() {
 	left := getLines(leftFile)
 	right := getLines(rightFile)
 
-	total := 0
+	totalLeft := 0
 
 	for key, _ := range left {
 		rightValue := right[key]
 		if rightValue == "" {
-			total++
-			fmt.Println("Key", key, "defined in", os.Args[1], "not found in", os.Args[2])
+			totalLeft++
+			fmt.Println("Key", key, "defined in", leftFile, "not found in", rightFile)
 		}
 	}
 
+	totalRight := 0
 	for key, _ := range right {
 		leftValue := left[key]
 		if leftValue == "" {
-			total++
-			fmt.Println("Key", key, "defined in", os.Args[2], "not found in", os.Args[1])
+			totalRight++
+			fmt.Println("Key", key, "defined in", rightFile, "not found in", leftFile)
 		}
 	}
-
-	fmt.Println("Total difference: ", total)
+	fmt.Println()
+	fmt.Println(totalLeft, "keys defined in", leftFile, "not found in", rightFile)
+	fmt.Println(totalRight, "keys defined in", rightFile, "not found in", leftFile)
+	fmt.Println("Total difference: ", totalLeft+totalRight)
 
 }

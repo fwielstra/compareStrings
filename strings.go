@@ -18,6 +18,10 @@ func getLines(filePath string) map[string]string {
 	result := make(map[string]string)
 	for scanner.Scan() {
 		line := scanner.Text()
+		if strings.Contains(line, ";;") {
+			fmt.Println("ERROR: Line contains double semicolons!", line)
+			os.Exit(1)
+		}
 		split := strings.Split(line, " = ")
 		if len(split) == 2 {
 			result[split[0]] = split[1]
